@@ -50,19 +50,19 @@ const MessageBoard = React.createClass({
             ]
         };
     },
-    remove: function(x){
+    remove: function(input){
         let arr = this.state.messages;
-        arr.splice(x, 1);
+        arr.splice(input, 1);
         this.setState({messages:arr});
     },
-    update: function(newText, x) {
+    update: function(newText, input) {
         let arr = this.state.messages;
-        arr[x] = newText;
+        arr[input] = newText;
         this.setState({messages:arr});
     },
-    oneMessage: function(text, x){
+    oneMessage: function(text, input){
         return (
-            <Message key={x} index={x} updateMessage={this.update} deleteMessage={this.remove}>
+            <Message key={input} index={input} updateMessage={this.update} deleteMessage={this.remove}>
                 {text}
             </Message>);
     },
