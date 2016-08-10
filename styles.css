@@ -20,7 +20,7 @@ img{
   max-width: 100%
   height: auto;
 }
-textarea{
+textarea, input{
   color: #000;
 }
 .jumbotron{

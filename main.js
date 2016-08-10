@@ -39,6 +39,43 @@ const Message = React.createClass({
     }
 })
 
+const NewMessageForm = React.createClass({
+  getInitialState: function() {
+    return {
+      text: ''
+    }
+  },
+  addMessage: function() {
+    this.props.addMessage(this.state.text);
+    this.setState({text: ''});
+  },
+  render: function() {
+    return (
+      <div>
+        <input type="text"
+               value={this.state.text}
+               onChange={ e => this.setState({text: e.target.value}) }
+         />
+        <button className="btn btn-primary" onClick={this.addMessage}>Add</button>
+      </div>
+    );
+  }
+});
+
+const MessageList = React.createClass({
+  render: function() {
+    let messages = this.props.messages.map(message => {
+      return <li key={message.id}>{message.text}</li>
+    });
+    return (
+      <ul>
+        {messages}
+      </ul>
+    )
+  }
+})
+
+
 const MessageBoard = React.createClass({ 
     getInitialState: function() {
         return{
@@ -49,6 +86,15 @@ const MessageBoard = React.createClass({
             "Oh No"
             ]
         };
+    },
+    addMessage: function(text) {
+        let message = {
+            text,
+            id: uuid()
+        };
+        this.setState({
+            messages: this.state.messages.concat(messages)
+        })
     },
     remove: function(input){
         let arr = this.state.messages;
@@ -70,6 +116,9 @@ const MessageBoard = React.createClass({
         return(
             <div>
                {this.state.messages.map(this.oneMessage)}
+               <hr/>
+               <NewMessageForm  addMessage={this.addMessage}/>
+               <MessageList messages={this.state.messages}/>
             </div>
         );
     }
